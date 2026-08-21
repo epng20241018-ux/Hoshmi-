@@ -1,203 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kayaw Shisu | Official Website</title>
-    <!-- Google Fonts & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+</div>
+            <div class="skills-grid">
+                <div class="skill-chip"><i class="fa-brands fa-html5"></i> HTML5</div>
+                <div class="skill-chip"><i class="fa-brands fa-css3-alt"></i> CSS3 / SCSS</div>
+                <div class="skill-chip"><i class="fa-brands fa-js"></i> JavaScript</div>
+                <div class="skill-chip"><i class="fa-brands fa-git-alt"></i> Git & GitHub</div>
+                <div class="skill-chip"><i class="fa-solid fa-cloud"></i> GitHub Pages</div>
+                <div class="skill-chip"><i class="fa-solid fa-shield-halved"></i> Cloudflare / DNS</div>
+            </div>
+        </section>
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #0f172a, #1e1b4b, #311042);
-            background-size: 400% 400%;
-            animation: gradientBG 12s ease infinite;
-            color: #ffffff;
-            padding: 20px;
-        }
+        <!-- Projects -->
+        <section id="projects">
+            <div class="section-header">
+                <h2><i class="fa-solid fa-laptop-code"></i> Featured Projects</h2>
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <h3>💌 To Someone App</h3>
+                        <p>A web app that creates URL-encoded digital letters and secret messages for friends or loved ones without a database.</p>
+                        <div class="project-tags">
+                            <span>HTML5</span>
+                            <span>JavaScript</span>
+                            <span>CSS3</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+                        <a href="https://github.com/epng20241018" target="_blank"><i class="fa-brands fa-github"></i> Source</a>
+                    </div>
+                </div>
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <h3>🌐 Personal Bio Link</h3>
+                        <p>Minimalist responsive link-in-bio website featuring interactive greetings and dynamic dark mode.</p>
+                        <div class="project-tags">
+                            <span>GitHub Pages</span>
+                            <span>Custom Domain</span>
+                        </div>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://kayawshisu.me" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Site</a>
+                        <a href="https://github.com/epng20241018" target="_blank"><i class="fa-brands fa-github"></i> Source</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        .card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 24px;
-            padding: 40px 28px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease;
-        }
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="contact-box">
+                <h2>Let's build something together</h2>
+                <p style="color: var(--text-muted); margin-top: 8px;">Got a question or want to collaborate? Feel free to reach out anytime.</p>
+                <div class="social-bar">
+                    <a href="mailto:your-email@gmail.com" class="social-btn" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="https://github.com/epng20241018" target="_blank" class="social-btn" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://telegram.org" target="_blank" class="social-btn" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="https://facebook.com" target="_blank" class="social-btn" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+        </section>
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .avatar-container {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 16px;
-            position: relative;
-        }
-
-        .avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #38bdf8;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(56, 189, 248, 0.15);
-            color: #38bdf8;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #ffffff, #38bdf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p.bio {
-            font-size: 0.9rem;
-            color: #cbd5e1;
-            line-height: 1.5;
-            margin-bottom: 24px;
-        }
-
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .link-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 12px 20px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.08);
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            transition: all 0.25s ease;
-        }
-
-        .link-btn:hover {
-            background: #38bdf8;
-            color: #0f172a;
-            transform: scale(1.02);
-            box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-top: 10px;
-        }
-
-        .social-icons a {
-            color: #94a3b8;
-            font-size: 1.3rem;
-            transition: color 0.2s ease, transform 0.2s ease;
-        }
-
-        .social-icons a:hover {
-            color: #38bdf8;
-            transform: translateY(-3px);
-        }
-
-        footer {
-            margin-top: 25px;
-            font-size: 0.75rem;
-            color: #64748b;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="card">
-        <div class="avatar-container">
-            <!-- Profile ပုံ ပြောင်းချင်ရင် အောက်က src လင့်ခ်ကို ပြောင်းပါ -->
-            <img class="avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=Kayaw" alt="Avatar">
-        </div>
-
-        <div class="badge" id="greeting">Welcome</div>
-        <h1>Kayaw Shisu</h1>
-        <p class="bio">Welcome to my personal corner of the web! Learning, building, and exploring new ideas.</p>
-        
-        <!-- ချိတ်ဆက်လိုသော ခလုတ်လင့်ခ်များ -->
-        <div class="links">
-            <a href="https://github.com/epng20241018" target="_blank" class="link-btn">
-                <i class="fa-brands fa-github"></i> GitHub Profile
-            </a>
-            <a href="mailto:epng20241018@gmail.com" class="link-btn">
-                <i class="fa-solid fa-envelope"></i> Send Email
-            </a>
-            <a href="#" class="link-btn">
-                <i class="fa-solid fa-folder-open"></i> My Projects
-            </a>
-        </div>
-
-        <!-- Social Media Icon များ -->
-        <div class="social-icons">
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#"><i class="fa-brands fa-telegram"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-        </div>
-
-        <footer>© 2026 kayawshisu.me • All Rights Reserved</footer>
+        <footer>
+            © 2026 Kayaw Shisu. Powered by GitHub Pages & Custom Domain.
+        </footer>
     </div>
 
-    <script>
-        // အချိန်ပေါ်မူတည်ပြီး နှုတ်ခွန်းဆက်စကား အလိုအလျောက်ပြောင်းလဲခြင်း
-        const greetingElem = document.getElementById('greeting');
-        const hour = new Date().getHours();
-        if (hour < 12) {
-            greetingElem.innerText = "🌅 Good Morning!";
-        } else if (hour < 18) {
-            greetingElem.innerText = "☀️ Good Afternoon!";
-        } else {
-            greetingElem.innerText = "🌙 Good Evening!";
-        }
-    </script>
 </body>
 </html>
