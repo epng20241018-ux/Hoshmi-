@@ -1,4 +1,199 @@
-function handleEnvelopeClick() {
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To Someone Special 💌</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    * {
+      font-family: 'Quicksand', 'Pyidaungsu', sans-serif;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-handwriting {
+      font-family: 'Dancing Script', cursive;
+    }
+    body {
+      background: linear-gradient(135deg, #ffd1dc 0%, #fbe4e8 50%, #e8dff5 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .envelope-container {
+      position: relative;
+      width: 320px;
+      height: 220px;
+      cursor: pointer;
+      perspective: 1000px;
+      margin: 0 auto;
+    }
+    .envelope-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #f472b6;
+      border-radius: 16px;
+      box-shadow: 0 15px 30px rgba(244, 114, 182, 0.35);
+      z-index: 1;
+    }
+    .letter {
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+      width: 290px;
+      height: 200px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: all 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 2;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .envelope-pocket {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid #fb7185;
+      border-right: 160px solid #fb7185;
+      border-top: 110px solid transparent;
+      border-bottom: 110px solid #f43f5e;
+      border-radius: 0 0 16px 16px;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 125px solid #e11d48;
+      transform-origin: top;
+      transition: transform 0.6s ease-in-out;
+      z-index: 4;
+      border-radius: 16px 16px 0 0;
+    }
+    .heart-seal {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 38px;
+      z-index: 5;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    }
+    .envelope-container.open .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+    .envelope-container.open .heart-seal {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+    .envelope-container.open .letter {
+      transform: translateY(-160px) scale(1.08);
+      height: auto;
+      min-height: 280px;
+      z-index: 10;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .floating-heart {
+      position: absolute;
+      pointer-events: none;
+      animation: floatUp 4s linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0.8; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4 relative">
+
+  <div id="hearts-bg" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
+
+  <button id="music-btn" onclick="toggleMusic()" class="fixed top-5 right-5 z-50 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-pink-200 text-pink-600 font-semibold text-sm flex items-center gap-2">
+    <span id="music-icon">🎵</span> <span id="music-text">Music: Off</span>
+  </button>
+
+  <div class="relative z-10 flex flex-col items-center text-center max-w-md w-full pt-10">
+    <div id="tap-hint" class="mb-8">
+      <span class="bg-white/70 backdrop-blur px-4 py-1.5 rounded-full text-pink-600 font-semibold text-sm shadow-sm animate-pulse border border-pink-200">
+        ✨ စာအိတ်လေးကို နှိပ်ပြီး ဖွင့်ပါ ✨
+      </span>
+      <h1 class="text-3xl font-bold text-gray-800 mt-4 font-handwriting">To Someone Special</h1>
+    </div>
+
+    <div id="envelope" class="envelope-container" onclick="handleEnvelopeClick()">
+      <div class="envelope-back"></div>
+      
+      <div class="letter text-left flex flex-col justify-between" onclick="event.stopPropagation()">
+        <div>
+          <div class="flex justify-between items-center border-b border-pink-100 pb-2 mb-3">
+            <span class="text-xs text-pink-400 font-bold tracking-widest uppercase">Secret Letter</span>
+            <span class="text-lg">💌</span>
+          </div>
+          <h2 class="text-lg font-bold text-gray-800 mb-2">Dear You,</h2>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            ဒီစာလွှာလေးကို ဖတ်နေရတဲ့အချိန်မှာ မင်းရဲ့တစ်နေ့တာ ပျော်ရွှင်အေးချမ်းပါစေ။ အမြဲတမ်း ပြုံးပြုံးရွှင်ရွှင်နဲ့ ကျန်းမာပျော်ရွှင်နေဖို့ မျှော်လင့်ပါတယ်။ စိတ်ညစ်စရာတွေရှိခဲ့ရင်လည်း အားလုံးအဆင်ပြေသွားမှာပါနော်... 💖
+          </p>
+        </div>
+        <div class="mt-4 pt-2 border-t border-pink-100 flex justify-between items-center">
+          <button onclick="sendLove()" class="bg-rose-500 hover:bg-rose-600 active:scale-95 text-white px-3 py-1 rounded-full text-xs font-semibold shadow flex items-center gap-1">
+            <span>Send Love</span> 💖
+          </button>
+          <p class="text-right text-xs font-semibold text-rose-500 font-handwriting text-base">- From Someone</p>
+        </div>
+      </div>
+
+      <div class="envelope-pocket"></div>
+      <div class="envelope-flap"></div>
+      <div class="heart-seal animate-pulse">❤️</div>
+    </div>
+  </div>
+
+  <audio id="bg-music" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    let isOpen = false;
+    let isMusicPlaying = false;
+    const bgMusic = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    const musicIcon = document.getElementById('music-icon');
+    const musicText = document.getElementById('music-text');
+
+    function playOpenSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(783.99, audioCtx.currentTime + 0.3);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.5);
+      } catch(e) {}
+    }
+
+    function handleEnvelopeClick() {
       const envelope = document.getElementById('envelope');
       const tapHint = document.getElementById('tap-hint');
 
@@ -6,20 +201,14 @@ function handleEnvelopeClick() {
         envelope.classList.add('open');
         isOpen = true;
         playOpenSound();
+        if (!isMusicPlaying) playMusic();
         
-        // Auto play BGM when opened
-        if (!isMusicPlaying) {
-          playMusic();
-        }
-
-        // Confetti burst
         confetti({
           particleCount: 70,
           spread: 60,
           origin: { y: 0.6 },
           colors: ['#ff69b4', '#ff1493', '#ffb6c1', '#f43f5e']
         });
-
         tapHint.style.opacity = '0';
       } else {
         envelope.classList.remove('open');
@@ -33,9 +222,7 @@ function handleEnvelopeClick() {
         isMusicPlaying = true;
         musicIcon.textContent = '🔊';
         musicText.textContent = 'Music: On';
-      }).catch(err => {
-        console.log("Autoplay blocked:", err);
-      });
+      }).catch(err => {});
     }
 
     function toggleMusic() {
@@ -54,17 +241,14 @@ function handleEnvelopeClick() {
         particleCount: 100,
         spread: 100,
         origin: { y: 0.5 },
-        shapes: ['circle'],
         colors: ['#e11d48', '#f43f5e', '#fb7185', '#fda4af']
       });
       alert("အချစ်တွေ ပြန်ပို့လိုက်ပါပြီ! 💖");
     }
 
-    // Generate Floating Background Hearts
     function createFloatingHearts() {
       const container = document.getElementById('hearts-bg');
       const hearts = ['💖', '💕', '🌸', '✨', '💗'];
-      
       setInterval(() => {
         const heart = document.createElement('div');
         heart.classList.add('floating-heart');
@@ -73,10 +257,7 @@ function handleEnvelopeClick() {
         heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
         heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
         container.appendChild(heart);
-
-        setTimeout(() => {
-          heart.remove();
-        }, 4000);
+        setTimeout(() => heart.remove(), 4000);
       }, 500);
     }
 
