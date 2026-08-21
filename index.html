@@ -1,52 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Letter For You 💌</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .envelope-card {
-      transition: all 0.5s ease-in-out;
+function handleEnvelopeClick() {
+      const envelope = document.getElementById('envelope');
+      const tapHint = document.getElementById('tap-hint');
+
+      if (!isOpen) {
+        envelope.classList.add('open');
+        isOpen = true;
+        playOpenSound();
+        
+        // Auto play BGM when opened
+        if (!isMusicPlaying) {
+          playMusic();
+        }
+
+        // Confetti burst
+        confetti({
+          particleCount: 70,
+          spread: 60,
+          origin: { y: 0.6 },
+          colors: ['#ff69b4', '#ff1493', '#ffb6c1', '#f43f5e']
+        });
+
+        tapHint.style.opacity = '0';
+      } else {
+        envelope.classList.remove('open');
+        isOpen = false;
+        tapHint.style.opacity = '1';
+      }
     }
-  </style>
-</head>
-<body class="bg-rose-50 flex items-center justify-center min-h-screen p-4 font-sans">
 
-  <div class="max-w-md w-full text-center">
-    
-    <!-- Envelope Cover -->
-    <div id="envelope-box" onclick="openLetter()" class="cursor-pointer bg-white p-8 rounded-2xl shadow-xl border border-rose-200 hover:scale-105 transition-all duration-300">
-      <div class="text-6xl mb-4 animate-bounce">💌</div>
-      <h1 class="text-2xl font-bold text-rose-600 mb-2">မင်းအတွက် စာတစ်စောင်ရှိတယ်</h1>
-      <p class="text-gray-500 text-sm">စာအိတ်လေးကို နှိပ်ပြီး ဖွင့်ဖတ်ကြည့်ပါ ✨</p>
-    </div>
+    function playMusic() {
+      bgMusic.play().then(() => {
+        isMusicPlaying = true;
+        musicIcon.textContent = '🔊';
+        musicText.textContent = 'Music: On';
+      }).catch(err => {
+        console.log("Autoplay blocked:", err);
+      });
+    }
 
-    <!-- Hidden Letter Content -->
-    <div id="letter-content" class="hidden bg-white p-8 rounded-2xl shadow-2xl border border-rose-100 envelope-card text-left">
-      <div class="text-center text-4xl mb-3">💖</div>
-      <h2 class="text-xl font-bold text-gray-800 mb-4 text-center">To Someone Special,</h2>
-      <p class="text-gray-700 leading-relaxed mb-4 text-justify">
-        ဒီစာလွှာလေးကို ဖတ်နေရတဲ့အချိန်မှာ မင်းရဲ့တစ်နေ့တာ ပျော်ရွှင်အေးချမ်းပါစေ။ အမြဲတမ်း ပြုံးပြုံးရွှင်ရွှင်နဲ့ ကျန်းမာပျော်ရွှင်နေဖို့ မျှော်လင့်ပါတယ်။ ✨
-      </p>
-      <p class="text-right font-semibold text-rose-500 mt-6">- From Someone</p>
+    function toggleMusic() {
+      if (isMusicPlaying) {
+        bgMusic.pause();
+        isMusicPlaying = false;
+        musicIcon.textContent = '🔇';
+        musicText.textContent = 'Music: Off';
+      } else {
+        playMusic();
+      }
+    }
+
+    function sendLove() {
+      confetti({
+        particleCount: 100,
+        spread: 100,
+        origin: { y: 0.5 },
+        shapes: ['circle'],
+        colors: ['#e11d48', '#f43f5e', '#fb7185', '#fda4af']
+      });
+      alert("အချစ်တွေ ပြန်ပို့လိုက်ပါပြီ! 💖");
+    }
+
+    // Generate Floating Background Hearts
+    function createFloatingHearts() {
+      const container = document.getElementById('hearts-bg');
+      const hearts = ['💖', '💕', '🌸', '✨', '💗'];
       
-      <div class="mt-6 text-center">
-        <button onclick="closeLetter()" class="text-xs text-gray-400 hover:text-gray-600 underline">ပြန်ပိတ်မည်</button>
-      </div>
-    </div>
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('floating-heart');
+        heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+        heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+        container.appendChild(heart);
 
-  </div>
+        setTimeout(() => {
+          heart.remove();
+        }, 4000);
+      }, 500);
+    }
 
-  <script>
-    function openLetter() {
-      document.getElementById('envelope-box').classList.add('hidden');
-      document.getElementById('letter-content').classList.remove('hidden');
-    }
-    function closeLetter() {
-      document.getElementById('letter-content').classList.add('hidden');
-      document.getElementById('envelope-box').classList.remove('hidden');
-    }
+    createFloatingHearts();
   </script>
 </body>
 </html>
